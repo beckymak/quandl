@@ -29,3 +29,20 @@ sci = Quandl("YAHOO/INDEX_SSEC", type = "xts", start_date = sdate, end_date = ed
 chartSeries(hsi)
 chartSeries(sp)
 chartSeries(sci)
+
+#---
+## quantmode loop assignment
+library(Quandl)
+library(quantmod)
+
+sdate = "2014-01-01"
+edate = "2015-03-31"
+
+index = c("HSI", "GSPC", "SSEC")
+qcode = paste("YAHOO/INDEX_",index,sep="")
+data = list()
+for(i in 1:length(index)){
+    data[[i]] = Quandl(qcode[i], type = "xts", start_date = sdate, end_date = edate)
+}
+# data = lapply(qcode, Quandl, type = "xts", start_date = sdate, end_date = edate) #not tested
+lapply(data, chartSeries) # all volume on one 
